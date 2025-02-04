@@ -3,19 +3,81 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --primary-light-color: #fdfbf8;
+    --secondary-light-color: #f4e8d1;
+    --hilight-color: #e58e73;
+    --hilight-color-2: #6b7280;
+    --input-opacity:rgba(255, 255, 255, 1);
+    --border-opacity:rgba(229, 231, 235, 1);
+    --n-blue: #d9e4f5;
+    --n-yellow: #eef3c3;
+    --n-purple: #d6cef6;
+    --n-teal: #c4f4eb;
+    --n-teal: #c4f4eb;
+    --n-red: #f7dbe6;
+    --n-green: #d2f6de;
+    --n-pink: #f8d9e9;
+ }
+
+[data-theme="warm"] {
+    --primary-light-color: #fdfbf8;
+    --secondary-light-color: #f4e8d1;
+    --hilight-color: #e58e73;
+    --hilight-color-2: #6b7280;
+    --input-opacity:rgba(255, 255, 255, 1);
+    --border-opacity:rgba(229, 231, 235, 1);
+    --n-blue: #d9e4f5;
+    --n-yellow: #eef3c3;
+    --n-purple: #d6cef6;
+    --n-teal: #c4f4eb;
+    --n-teal: #c4f4eb;
+    --n-red: #f7dbe6;
+    --n-green: #d2f6de;
+    --n-pink: #f8d9e9;
+ }
+
+ [data-theme="nord"] {
+    --primary-light-color: #4C566A;
+    --secondary-light-color: #3B4252;
+    --hilight-color: #5E81AC;
+    --hilight-color-2: #dbdbdd;
+    --input-opacity:rgb(39, 39, 39);
+    --border-opacity:rgba(0, 0, 0, 0.2);
+    --n-blue: #d9e4f5;
+    --n-yellow: #eef3c3;
+    --n-purple: #d6cef6;
+    --n-teal: #c4f4eb;
+    --n-teal: #c4f4eb;
+    --n-red: #f7dbe6;
+    --n-green: #d2f6de;
+    --n-pink: #f8d9e9;
+ }
+.nsand {
+    background-color: var(--primary-light-color);
+}
+.nsand2 {
+    background-color: var(--secondary-light-color);
+}
+.nsand3 {
+    background-color: var(--hilight-color);
+    color: var(--primary-light-color);
+}
+.nfont {
+    color: var(--hilight-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.nfont-2 {
+    color: var(--hilight-color-2);
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.n-border {
+    border-color: var(--border-opacity);
 }
+
+input, textarea, select, option {
+    background-color: var(--input-opacity);
+};
+
+input:focus {
+    border: 0px;
+};

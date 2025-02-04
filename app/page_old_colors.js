@@ -1,8 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { Inter } from "next/font/google";
 import ReactMarkdown from 'react-markdown';
 import "./globals.css";
 import clsx from "clsx";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [chats, setChats] = useState([]);
@@ -178,14 +181,14 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen nsand nfont">
+    <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-1/4 nsand2 border-r n-border">
-        <div className="p-4 border-b n-border flex justify-between items-center">
+      <div className="w-1/4 bg-white border-r">
+        <div className="p-4 border-b flex justify-between items-center">
           <h1 className="text-xl font-bold">CSIF</h1>
           <button
             onClick={addChat}
-            className="px-4 py-2 bg-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             Create thread
           </button>
@@ -208,7 +211,7 @@ export default function Home() {
                     value={editedName}
                     onChange={(e) => setEditedName(e.target.value)}
                     onBlur={() => saveChatName(chat.id)}
-                    className="border-b-3 n-border rounded px-2 py-1"
+                    className="border-b-3 border-zinc-900/50 rounded px-2 py-1"
                   />
                 ) : (
                   <h2
@@ -218,8 +221,8 @@ export default function Home() {
                     {chat.name || `Chat ${chat.id}`}
                   </h2>
                 )}
-                <span className="text-sm nfont-2">Priority: {priority[chat.id]}</span>
-                <span className="ml-2 text-sm  nfont-2">
+                <span className="text-sm text-gray-500">Priority: {priority[chat.id]}</span>
+                <span className="ml-2 text-sm  text-gray-500">
                   ({chat.messages?.filter((msg) => msg.status === "Completed").length || 0} / {(chat.messages.length) - (chat.messages?.filter((msg) => msg.status === "Normal")).length || 0})
                 </span>
               </div>
@@ -232,29 +235,29 @@ export default function Home() {
       <div className="w-3/4 flex flex-col">
         {activeChat ? (
           <>
-            <div className="p-4 border-b n-border flex items-center justify-between">
+            <div className="p-4 border-b flex items-center justify-between">
               <h2 className="text-xl font-bold">
                 {chats.find((chat) => chat.id === activeChat)?.name || `Thread: ${activeChat}`}
               </h2>
-              <span className="text-sm nfont-2">Priority: {priority[activeChat]}</span>
+              <span className="text-sm text-gray-500">Priority: {priority[activeChat]}</span>
             </div>
-            <div className="p-4 border-b n-border items-stretch flex">
-              <label htmlFor="sort" className="mr-2 nfont-2">Sort By:</label>
+            <div className="p-4 border-b items-stretch flex">
+              <label htmlFor="sort" className="mr-2 font-medium text-gray-700">Sort By:</label>
               <select
                 id="sort"
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="border-b-3 n-border rounded px-2 py-1 mr-3"
+                className="border-b-3 border-zinc-900/50 rounded px-2 py-1"
               >
                 <option value="Priority">Priority</option>
                 <option value="End Date">End Date</option>
               </select>
-              <label htmlFor="setPriority" className="mr-2 nfont-2">Set:</label>
+              <label htmlFor="setPriority" className="mr-2 font-medium text-gray-700">Set:</label>
               <select
                 id="setPriority"
                 value={priority[activeChat]}
                 onChange={(e) => updatePriority(activeChat, e.target.value)}
-                className="border-b-3 n-border rounded px-2 py-1 inline-block mr-3"
+                className="border-b-3 border-zinc-900/50 rounded px-2 py-1 inline-block"
               >
                 <option value="Low">Low</option>
                 <option value="Normal">Normal</option>
@@ -277,7 +280,7 @@ export default function Home() {
                     "mb-2 p-2 rounded-md max-w-xs flex",
                     !message.endDate ? "bg-blue-200 text-blue-800" : 
                     new Date(message.endDate) < new Date() ? "bg-red-200 text-red-800" :
-                    new Date(message.endDate) <= new Date(new Date().setDate(new Date().getDate() + 2)) ? "bg-yellow-200 text-yellow-800" :  "bg-gray-200 nfont-2"
+                    new Date(message.endDate) <= new Date(new Date().setDate(new Date().getDate() + 2)) ? "bg-yellow-200 text-yellow-800" :  "bg-gray-200 text-gray-800"
                   )}
                 >
                   {editingMessage === message.id ? (
@@ -286,7 +289,7 @@ export default function Home() {
                         type="text"
                         value={editedText}
                         onChange={(e) => setEditedText(e.target.value)}
-                        className="border-b-3 n-border rounded px-2 py-1 mb-2"
+                        className="border-b-3 border-zinc-900/50 rounded px-2 py-1 mb-2"
                       />
                       {message.status !== "Normal" && (
                       <>
@@ -294,12 +297,12 @@ export default function Home() {
                         type="date"
                         value={editedEndDate}
                         onChange={(e) => setEditedEndDate(e.target.value)}
-                        className="border-b-3 n-border rounded px-2 py-1 mr-2"
+                        className="border-b-3 border-zinc-900/50 rounded px-2 py-1 mr-2"
                       />
                       <select
                         value={editedStatus}
                         onChange={(e) => setEditedStatus(e.target.value)}
-                        className="border-b-3 n-border rounded px-2 py-2 mb-1"
+                        className="border-b-3 border-zinc-900/50 rounded px-2 py-2 mb-1"
                       >
                         <option value="Idle">Idle</option>
                         <option value="Ongoing">Ongoing</option>
@@ -316,7 +319,7 @@ export default function Home() {
                     </div>
                   ) : (
                     <>
-                    <div className="w-1/10 flex flex-col justify-center items-center pr-1 border-r-2 n-border">
+                    <div className="w-1/10 flex flex-col justify-center items-center pr-1 border-r-2">
                       <button className="mb-1" onClick={() => message.linkedChatroomId? setActiveChat(message.linkedChatroomId) : linkMessageToChatroom(activeChat, message.id) }>
                       { message.linkedChatroomId? <i className="bi bi-journal-text"></i> : <i className="bi bi-journal-plus"></i> }
                       </button>
@@ -328,8 +331,8 @@ export default function Home() {
                     <ReactMarkdown className="prose">{message.text}</ReactMarkdown>
                     {message.status !== "Normal" && (
                       <>
-                        <p className="text-sm opacity-60">End Date: {message.endDate || "N/A"}</p>
-                        <p className="text-sm opacity-60">Status: {message.status}</p>
+                        <p className="text-sm text-gray-500">End Date: {message.endDate || "N/A"}</p>
+                        <p className="text-sm text-gray-500">Status: {message.status}</p>
                       </>
                     )}
                     </div>
@@ -338,12 +341,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="p-4 border-t n-border flex items-center gap-2">
+            <div className="p-4 border-t flex items-center gap-2">
             <button
               onClick={() => {setStatus(mode === "text" ? "Idle" : "Normal");setMode(mode === "text" ? "task" : "text");console.log(mode,status);}}
-              className="h-10 w-10 nsand2 rounded-full text-sm"
+              className="h-10 w-10 bg-gray-300 rounded-full hover:bg-gray-400 text-sm"
             >
-            {mode === "text" ? <i className="bi bi-chat-left-fill"></i> : <i className="bi bi-list-task"></i> }
+            {mode === "text" ? <i className="bi bi-list-task"></i> : <i className="bi bi-chat-left-fill"></i>}
             </button>
 
             {/* Message Input */}
@@ -353,13 +356,13 @@ export default function Home() {
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
               placeholder={mode === "text" ? "Type a message" : "Enter task details"}
-              className="border-b-3 n-border rounded px-2 py-5 flex-1"
+              className="border-b-3 border-zinc-900/50 rounded px-2 h-20 flex-1"
             />
 
             {/* Send Button */}
             <button
               onClick={sendMessage}
-              className="px-4 h-10 nsand3 rounded"
+              className="px-4 h-10 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               {mode === "text" ? "Send Msg" : "Add Task"}
             </button>
@@ -367,7 +370,7 @@ export default function Home() {
           </>
         ) : (
           <div className="flex flex-1 justify-center items-center">
-            <h2 className="nfont-2 text-lg">Select or create a chat to start messaging.</h2>
+            <h2 className="text-gray-500 text-lg">Select or create a chat to start messaging.</h2>
           </div>
         )}
       </div>
